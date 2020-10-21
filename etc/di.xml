@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageSuite\RestApiLogger\Api\Data\RestLogInterface" type="MageSuite\RestApiLogger\Model\Data\RestLog" />
+    <preference for="MageSuite\RestApiLogger\Api\RestLogRepositoryInterface" type="MageSuite\RestApiLogger\Model\RestLogRepository" />
+    <preference for="MageSuite\RestApiLogger\Api\RestLogSearchResultInterface" type="MageSuite\RestApiLogger\Model\RestLogSearchResult" />
+
+    <type name="Magento\Webapi\Controller\Rest">
+        <plugin name="rest_api_payload_logger" type="\MageSuite\RestApiLogger\Plugin\Webapi\Controller\RestApiPayloadLogger" sortOrder="10"/>
+    </type>
+</config>

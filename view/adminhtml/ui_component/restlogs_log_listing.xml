@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">restlogs_log_listing.restlogs_log_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons />
+        <spinner>restlogs_log_columns</spinner>
+        <deps>
+            <dep>restlogs_log_listing.restlogs_log_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="restlogs_log_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Config::config</aclResource>
+        <dataProvider class="MageSuite\RestApiLogger\Ui\DataProvider\RestLogDataProvider" name="restlogs_log_listing_data_source">
+            <settings>
+                <requestFieldName>log_id</requestFieldName>
+                <primaryFieldName>log_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="endpoint"/>
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <massaction/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="restlogs_log_columns">
+        <column name="log_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="endpoint" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Endpoint</label>
+            </settings>
+        </column>
+        <column name="payload" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Payload</label>
+            </settings>
+        </column>
+        <column name="timestamp" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Timestamp</label>
+                <bodyTmpl>Magento_CompanyCredit/history/cells/date_with_title</bodyTmpl>
+            </settings>
+        </column>
+    </columns>
+</listing>
