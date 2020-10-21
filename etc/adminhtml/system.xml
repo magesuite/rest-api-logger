@@ -24,6 +24,16 @@
                         <![CDATA[New line separated list of endpoints which payloads will be logged to database.]]>
                     </comment>
                 </field>
+                <field id="logging_retention_period" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Logging retention period</label>
+                    <comment>
+                        <![CDATA[How long (in days) logs should be kept]]>
+                    </comment>
+                    <validate>validate-number validate-length maximum-length-4 validate-positive-number</validate>
+                    <depends>
+                        <field id="api_logging_enabled">1</field>
+                    </depends>
+                </field>
             </group>
         </section>
     </system>

@@ -16,16 +16,20 @@ class RestApiLogger
 
     protected $restLog;
 
+    protected $cleanup;
+
     /**
      * Rest constructor.
      * @param \MageSuite\RestApiLogger\Model\RestLogFactory $restPayload
      */
     public function __construct(
         \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configHelper,
-        \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface $restLogRepository
+        \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface $restLogRepository,
+        \MageSuite\RestApiLogger\Model\Command\CleanLogs $cleanup
     ) {
         $this->configHelper = $configHelper;
         $this->restLogRepository = $restLogRepository;
+        $this->cleanup = $cleanup;
     }
 
     /**
@@ -38,6 +42,7 @@ class RestApiLogger
         \Magento\Webapi\Controller\Rest $subject,
         \Magento\Framework\App\RequestInterface $request
     ) {
+        $this->cleanup->execute('3');
         if ($this->configHelper->isApiLoggingEnabled()) {
             if (in_array($request->getPathInfo(), $this->configHelper->getRestEndpointsToLogPayload())) {
                 $this->restLog = $this->restLogRepository->create();
