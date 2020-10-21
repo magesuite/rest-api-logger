@@ -42,7 +42,6 @@ class RestApiLogger
         \Magento\Webapi\Controller\Rest $subject,
         \Magento\Framework\App\RequestInterface $request
     ) {
-        $this->cleanup->execute('3');
         if ($this->configHelper->isApiLoggingEnabled()) {
             if (in_array($request->getPathInfo(), $this->configHelper->getRestEndpointsToLogPayload())) {
                 $this->restLog = $this->restLogRepository->create();
