@@ -15,8 +15,8 @@ class LogsCleanup
     protected $cleanLogs;
 
     public function __construct(
-        \MageSuite\Cache\Helper\Configuration $configuration,
-        \MageSuite\Cache\Model\Command\CleanLogs $cleanLogs
+        \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configuration,
+        \MageSuite\RestApiLogger\Model\Command\CleanLogs $cleanLogs
     )
     {
         $this->configuration = $configuration;
