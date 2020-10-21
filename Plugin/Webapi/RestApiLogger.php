@@ -1,8 +1,8 @@
 <?php
 
-namespace MageSuite\RestApiLogger\Plugin\Webapi\Controller;
+namespace MageSuite\RestApiLogger\Plugin\Webapi;
 
-class RestApiPayloadLogger
+class RestApiLogger
 {
     /**
      * @var \MageSuite\RestApiLogger\Helper\Configuration\RestLogger;
@@ -13,6 +13,8 @@ class RestApiPayloadLogger
      * @var \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface
      */
     protected $restLogRepository;
+
+    protected $restLog;
 
     /**
      * Rest constructor.
@@ -36,14 +38,26 @@ class RestApiPayloadLogger
         \Magento\Webapi\Controller\Rest $subject,
         \Magento\Framework\App\RequestInterface $request
     ) {
-        if ($this->configHelper->isEnableApiDebugging()) {
+        if ($this->configHelper->isApiLoggingEnabled()) {
             if (in_array($request->getPathInfo(), $this->configHelper->getRestEndpointsToLogPayload())) {
-                $restPayloadLog = $this->restLogRepository->create();
-                $restPayloadLog->setEndpoint($request->getPathInfo());
-                $restPayloadLog->setPayload($request->getContent());
-
-                $this->restLogRepository->save($restPayloadLog);
+                $this->restLog = $this->restLogRepository->create();
+                $this->restLog->setEndpoint($request->getPathInfo());
+                $this->restLog->setPayload($request->getContent());
             }
+        }
+    }
+
+    public function afterSendResponse(
+        \Magento\Framework\Webapi\Rest\Response $subject,
+        $result
+    ) {
+        if ($this->configHelper->isApiLoggingEnabled()) {
+            if ($this->configHelper->isApiResponseLoggingEnabled()) {
+                $this->restLog->setResponseCode($subject->getStatusCode());
+                $this->restLog->setResponse($subject->getContent());
+            }
+
+            $this->restLogRepository->save($this->restLog);
         }
     }
 }

@@ -48,4 +48,24 @@ class RestLog extends \Magento\Framework\Model\AbstractModel implements \MageSui
     {
         return $this->getData('timestamp');
     }
+
+    public function setResponseCode($code)
+    {
+        return $this->setData('response_code', $code);
+    }
+
+    public function getResponseCode()
+    {
+        return $this->getData('response_code');
+    }
+
+    public function setResponse($response)
+    {
+        return $this->setData('response', $response);
+    }
+
+    public function getResponse()
+    {
+        return $this->getData('response');
+    }
 }

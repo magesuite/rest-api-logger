@@ -47,4 +47,26 @@ interface RestLogInterface
      * @return string|null
      */
     public function getTimestamp();
+
+    /**
+     * @param int $code
+     * @return int
+     */
+    public function setResponseCode($code);
+
+    /**
+     * @return int|null
+     */
+    public function getResponseCode();
+
+    /**
+     * @param string $response
+     * @return string
+     */
+    public function setResponse($response);
+
+    /**
+     * @return string|null
+     */
+    public function getResponse();
 }
