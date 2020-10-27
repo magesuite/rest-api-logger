@@ -5,10 +5,10 @@
     <preference for="MageSuite\RestApiLogger\Api\RestLogSearchResultInterface" type="MageSuite\RestApiLogger\Model\RestLogSearchResult" />
 
     <type name="Magento\Webapi\Controller\Rest">
-        <plugin name="rest_api_payload_logger" type="\MageSuite\RestApiLogger\Plugin\Webapi\RestApiLogger" sortOrder="10"/>
+        <plugin name="rest_api_payload_logger" type="\MageSuite\RestApiLogger\Plugin\Webapi\Controller\Rest\RestApiRequestLogger" sortOrder="10"/>
     </type>
 
     <type name="Magento\Framework\Webapi\Rest\Response">
-        <plugin name="rest_api_response_logger" type="\MageSuite\RestApiLogger\Plugin\Webapi\RestApiLogger" sortOrder="10"/>
+        <plugin name="rest_api_response_logger" type="\MageSuite\RestApiLogger\Plugin\Framework\Webapi\Rest\Response\RestApiResponseLogger" sortOrder="10"/>
     </type>
 </config>
