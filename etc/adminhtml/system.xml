@@ -3,12 +3,12 @@
     <system>
         <section id="system">
             <group id="restapi_logger" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Rest Api Payload Logger</label>
+                <label>Rest API Payload Logger</label>
                 <field id="api_logging_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Rest Api logging enabled</label>
+                    <label>Rest API logging enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>
-                        <![CDATA[If set to "Yes" module will log REST Api payloads into database.]]>
+                        <![CDATA[If set to "Yes" module will log REST API payloads into database.]]>
                     </comment>
                 </field>
                 <field id="api_response_logging_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
