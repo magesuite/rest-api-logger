@@ -32,14 +32,9 @@ class RestApiRequestLogger
         \Magento\Webapi\Controller\Rest $subject,
         \Magento\Framework\App\RequestInterface $request
     ) {
-        if ($this->configHelper->isApiLoggingEnabled() && $this->isEndpointValidToLog($request->getPathInfo())) {
+        if ($this->configHelper->isApiLoggingEnabled() && $this->configHelper->isEndpointValidToLog($request->getPathInfo())) {
             $this->createNewRestLogCommand->execute($request);
         }
-    }
-
-    protected function isEndpointValidToLog($pathInfo)
-    {
-        return in_array($pathInfo, $this->configHelper->getRestEndpointsToLogPayload());
     }
 }
 
