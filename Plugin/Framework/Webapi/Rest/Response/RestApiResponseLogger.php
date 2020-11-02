@@ -26,8 +26,10 @@ class RestApiResponseLogger
         \Magento\Framework\Webapi\Rest\Response $subject,
         $result
     ) {
-        if ($this->configHelper->isApiLoggingEnabled() && $this->configHelper->isApiResponseLoggingEnabled()) {
+        if ($this->configHelper->isApiLoggingEnabled() && $this->configHelper->isApiResponseLoggingEnabled() && $this->configHelper->getRestRegistry()) {
+            $this->configHelper->removeRestRegistry();
             $this->createNewRestLogCommand->execute($subject);
         }
     }
 }
+
