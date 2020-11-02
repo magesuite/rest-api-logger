@@ -8,23 +8,16 @@ class RestLogger
     const RESPONSE_ENABLED_XML_PATH = 'system/restapi_logger/api_response_logging_enabled';
     const ENDPOINTS_TO_LOG_XML_PATH = 'system/restapi_logger/rest_endpoints_to_log';
     const LOGGING_RETENTION_PERIOD = 'system/restapi_logger/logging_retention_period';
-    const REGISTER_REST_KEY = 'rest_logger_started';
 
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $scopeConfig;
-    /**
-     * @var \Magento\Framework\Registry
-     */
-    protected $registry;
 
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface,
-        \Magento\Framework\Registry $registry
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface
     ) {
         $this->scopeConfig = $scopeConfigInterface;
-        $this->registry = $registry;
     }
 
     public function isApiLoggingEnabled()
@@ -60,23 +53,9 @@ class RestLogger
         );
     }
 
-    public function setRestRegistry()
-    {
-        $this->registry->register(self::REGISTER_REST_KEY, true);
-    }
 
-    public function getRestRegistry()
+    public function isEndpointValidToLog($pathInfo)
     {
-        $result = false;
-        if ($registryValue = $this->registry->registry(self::REGISTER_REST_KEY)) {
-            $result = $registryValue;
-        }
-
-        return $result;
-    }
-
-    public function removeRestRegistry()
-    {
-        $this->registry->unregister(self::REGISTER_REST_KEY);
+        return in_array($pathInfo, $this->getRestEndpointsToLogPayload());
     }
 }
