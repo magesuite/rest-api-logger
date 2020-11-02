@@ -14,8 +14,9 @@ class RestLogger
      */
     protected $scopeConfig;
 
-    public function __construct(\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface)
-    {
+    public function __construct(
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface
+    ) {
         $this->scopeConfig = $scopeConfigInterface;
     }
 
@@ -50,5 +51,11 @@ class RestLogger
             self::LOGGING_RETENTION_PERIOD,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
+    }
+
+
+    public function isEndpointValidToLog($pathInfo)
+    {
+        return in_array($pathInfo, $this->getRestEndpointsToLogPayload());
     }
 }
