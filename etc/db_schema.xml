@@ -1,7 +1,7 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="rest_api_log" resource="default" comment="Contains the logged payloads from Rest Api requests">
         <column xsi:type="int" name="log_id" padding="10" identity="true" unsigned="true" nullable="false" comment="Entity Id"/>
-        <column xsi:type="varchar" name="endpoint" unsigned="true" nullable="false" comment="Rest Api Endpoint"/>
+        <column xsi:type="varchar" name="endpoint" unsigned="false" nullable="false" comment="Rest Api Endpoint"/>
         <column xsi:type="blob" name="payload" nullable="false" comment="Rest Api Payload Logged"/>
         <column xsi:type="int" name="response_code" nullable="false" comment="Rest Api Response Code"/>
         <column xsi:type="text" name="response" nullable="false" comment="Rest Api Response Logged"/>
