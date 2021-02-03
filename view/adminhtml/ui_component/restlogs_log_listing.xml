@@ -86,7 +86,6 @@
                 <filter>dateRange</filter>
                 <dataType>date</dataType>
                 <label translate="true">Timestamp</label>
-                <bodyTmpl>Magento_CompanyCredit/history/cells/date_with_title</bodyTmpl>
             </settings>
         </column>
     </columns>
