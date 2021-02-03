@@ -10,7 +10,7 @@ class CreateNewRestLog
     protected $restLogRepository;
 
     /**
-     * @var null | \MageSuite\RestApiLogger\Api\Data\RestLogInterface
+     * @var \MageSuite\RestApiLogger\Api\Data\RestLogInterface
      */
     protected $restLog;
 
@@ -21,13 +21,13 @@ class CreateNewRestLog
 
     public function execute($dataObject)
     {
-        if($dataObject instanceof \Magento\Framework\App\RequestInterface) {
+        if ($dataObject instanceof \Magento\Framework\App\RequestInterface) {
             $this->restLog = $this->restLogRepository->create();
             $this->restLog->setEndpoint($dataObject->getPathInfo());
             $this->restLog->setPayload($dataObject->getContent());
         }
 
-        if($dataObject instanceof  \Magento\Framework\Webapi\Rest\Response) {
+        if ($dataObject instanceof \Magento\Framework\Webapi\Rest\Response) {
             $this->restLog->setResponseCode($dataObject->getStatusCode());
             $this->restLog->setResponse($dataObject->getContent());
         }

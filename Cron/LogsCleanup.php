@@ -10,17 +10,16 @@ class LogsCleanup
     protected $configuration;
 
     /**
-     * @var \MageSuite\RestApiLogger\Model\Command\CleanLogs
+     * @var \MageSuite\RestApiLogger\Model\ResourceModel\RestLog
      */
-    protected $cleanLogs;
+    protected $restLogResource;
 
     public function __construct(
         \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configuration,
-        \MageSuite\RestApiLogger\Model\Command\CleanLogs $cleanLogs
-    )
-    {
+        \MageSuite\RestApiLogger\Model\ResourceModel\RestLog $restLogResource
+    ) {
         $this->configuration = $configuration;
-        $this->cleanLogs = $cleanLogs;
+        $this->restLogResource = $restLogResource;
     }
 
     public function execute()
@@ -29,6 +28,10 @@ class LogsCleanup
             return;
         }
 
-        $this->cleanLogs->execute($this->configuration->getLoggingRetentionPeriod());
+        $daysAgo = $this->configuration->getLoggingRetentionPeriod();
+
+        if ($daysAgo > 0) {
+            $this->restLogResource->clean($daysAgo);
+        }
     }
 }

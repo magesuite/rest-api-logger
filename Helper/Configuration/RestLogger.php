@@ -2,23 +2,12 @@
 
 namespace MageSuite\RestApiLogger\Helper\Configuration;
 
-class RestLogger
+class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const ENABLED_XML_PATH = 'system/restapi_logger/api_logging_enabled';
     const RESPONSE_ENABLED_XML_PATH = 'system/restapi_logger/api_response_logging_enabled';
     const ENDPOINTS_TO_LOG_XML_PATH = 'system/restapi_logger/rest_endpoints_to_log';
     const LOGGING_RETENTION_PERIOD = 'system/restapi_logger/logging_retention_period';
-
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    protected $scopeConfig;
-
-    public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface
-    ) {
-        $this->scopeConfig = $scopeConfigInterface;
-    }
 
     public function isApiLoggingEnabled()
     {
@@ -53,9 +42,20 @@ class RestLogger
         );
     }
 
-
     public function isEndpointValidToLog($pathInfo)
     {
-        return in_array($pathInfo, $this->getRestEndpointsToLogPayload());
+        $endpoints = $this->getRestEndpointsToLogPayload();
+
+        if (empty($endpoints)) {
+            return false;
+        }
+
+        foreach ($endpoints as $endpoint) {
+            if (fnmatch($endpoint, $pathInfo)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

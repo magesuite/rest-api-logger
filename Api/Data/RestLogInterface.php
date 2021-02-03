@@ -4,6 +4,13 @@ namespace MageSuite\RestApiLogger\Api\Data;
 
 interface RestLogInterface
 {
+    const LOG_ID = 'log_id';
+    const ENDPOINT = 'endpoint';
+    const PAYLOAD = 'payload';
+    const RESPONSE_CODE = 'response_code';
+    const RESPONSE = 'response';
+    const TIMESTAMP = 'timestamp';
+
     /**
      * @param $logId
      * @return $this
