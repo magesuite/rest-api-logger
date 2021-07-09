@@ -7,7 +7,11 @@
                 <api_response_logging_enabled>0</api_response_logging_enabled>
                 <logging_retention_period>3</logging_retention_period>
                 <rest_endpoints_to_log>*</rest_endpoints_to_log>
-                <rest_endpoints_to_skip>/rest/ch_de/V1/guest-carts/*/estimate-shipping-methods</rest_endpoints_to_skip>
+                <rest_endpoints_to_skip>
+                    /rest/*/V1/guest-carts/*
+                    /rest/*/V1/customers/isEmailAvailable
+                    /rest/*/V1/carts/mine/*
+                </rest_endpoints_to_skip>
             </restapi_logger>
         </system>
     </default>

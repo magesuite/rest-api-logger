@@ -57,7 +57,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
         $endpointsToSkip = $this->getRestEndpointsToSkipPayload();
 
         foreach ($endpointsToSkip as $endpoint) {
-            if (fnmatch($endpoint, $pathInfo)) {
+            if (fnmatch(trim($endpoint), $pathInfo)) {
                 return false;
             }
         }
