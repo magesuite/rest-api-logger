@@ -24,7 +24,13 @@
                         <![CDATA[New line separated list of endpoints which payloads will be logged to database.<br/>Wildcard allowed, example: /rest/V1/order/*/invoice<br/>]]>
                     </comment>
                 </field>
-                <field id="logging_retention_period" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="rest_endpoints_to_skip" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Rest endpoint to skip</label>
+                    <comment>
+                        <![CDATA[New line separated list of endpoints which payloads will be skipped from logging.<br/>Wildcard allowed, example: /rest/V1/order/*/invoice<br/>]]>
+                    </comment>
+                </field>
+                <field id="logging_retention_period" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Logging retention period</label>
                     <comment>
                         <![CDATA[How long (in days) logs should be kept]]>
