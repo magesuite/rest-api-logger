@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    function openLogContent(logId, type, title) {
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal'
+            ],
+            function ($, modal) {
+                var options = {
+                    type: 'popup',
+                    title: title,
+                    buttons: [{
+                        text: $.mage.__('Close'),
+                        class: '',
+                        click: function () {
+                            this.closeModal();
+                        }
+                    }]
+                };
+
+                var modalIdentifier = '#' + type + '-modal-' + logId;
+                var textareaIdentifier = '#' + type + '-modal-' + logId + ' .' + type + '-content-' + logId;
+                $(textareaIdentifier).val($.trim($(textareaIdentifier).val()));
+                $(modalIdentifier).modal(options).modal('openModal');
+            }
+        );
+    }
+
+    function copyJson(logId, type) {
+        require(
+            [
+                'jquery'
+            ],
+            function ($) {
+                var identifier = '.' + type + '-content-' + logId;
+                $(identifier).select();
+                document.execCommand('copy');
+            }
+        );
+    }
+</script>
