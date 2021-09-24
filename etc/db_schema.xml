@@ -5,9 +5,17 @@
         <column xsi:type="longblob" name="payload" nullable="false" comment="Rest Api Payload Logged"/>
         <column xsi:type="int" name="response_code" nullable="false" comment="Rest Api Response Code"/>
         <column xsi:type="text" name="response" nullable="false" comment="Rest Api Response Logged"/>
+        <column xsi:type="varchar" name="http_method" nullable="false" comment="HTTP Request Method"/>
+        <column xsi:type="varchar" name="ip_address" nullable="false" comment="API Client IP Address"/>
         <column xsi:type="timestamp" name="timestamp" comment="Time"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="log_id"/>
         </constraint>
+        <index referenceId="INDEX_HTTP_METHOD" indexType="btree">
+            <column name="http_method"/>
+        </index>
+        <index referenceId="INDEX_IP_ADDRESS" indexType="btree">
+            <column name="ip_address"/>
+        </index>
     </table>
 </schema>

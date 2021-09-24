@@ -90,5 +90,19 @@
                 <label translate="true">Timestamp</label>
             </settings>
         </column>
+        <column name="http_method" component="Magento_Ui/js/grid/columns/select" sortOrder="40">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="MageSuite\RestApiLogger\Model\HttpRequestMethod\Type"/>
+                <label translate="true">HTTP Method</label>
+            </settings>
+        </column>
+        <column name="ip_address" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">IP Address</label>
+            </settings>
+        </column>
     </columns>
 </listing>

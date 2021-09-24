@@ -24,6 +24,11 @@ class CreateNewRestLog
      */
     protected $formatter;
 
+    /**
+     * @param \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface $restLogRepository
+     * @param \MageSuite\RestApiLogger\Helper\RestLog\Replacer $replacer
+     * @param \MageSuite\RestApiLogger\Helper\RestLog\Formatter $formatter
+     */
     public function __construct(
         \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface $restLogRepository,
         \MageSuite\RestApiLogger\Helper\RestLog\Replacer $replacer,
@@ -43,6 +48,8 @@ class CreateNewRestLog
             $payloadContentWithPlaceholders = $this->replacer->applyPayloadPlaceholders($dataObject->getContent());
             $croppedPayloadContent = $this->formatter->cropPayloadContent($payloadContentWithPlaceholders);
             $this->restLog->setPayload($croppedPayloadContent);
+            $this->restLog->setHttpMethod($dataObject->getMethod());
+            $this->restLog->setIpAddress($dataObject->getClientIp());
         }
 
         if ($dataObject instanceof \Magento\Framework\Webapi\Rest\Response) {
