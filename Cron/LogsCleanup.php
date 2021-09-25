@@ -30,8 +30,13 @@ class LogsCleanup
 
         $daysAgo = $this->configuration->getLoggingRetentionPeriod();
 
-        if ($daysAgo > 0) {
-            $this->restLogResource->clean($daysAgo);
+        if ($daysAgo <= 0) {
+            return;
+        }
+
+        $this->restLogResource->clean($daysAgo);
+        if ($this->configuration->isLogTableOptimizationEnabled()) {
+            $this->restLogResource->optimize();
         }
     }
 }

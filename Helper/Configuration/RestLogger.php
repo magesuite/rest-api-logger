@@ -4,14 +4,16 @@ namespace MageSuite\RestApiLogger\Helper\Configuration;
 
 class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const ENABLED_XML_PATH = 'system/restapi_logger/api_logging_enabled';
-    const MAXIMUM_PAYLOAD_LENGTH_XML_PATH = 'system/restapi_logger/maximum_payload_length';
-    const PAYLOAD_PLACEHOLDERS_XML_PATH = 'system/restapi_logger/payload_placeholders';
-    const RESPONSE_PLACEHOLDERS_XML_PATH = 'system/restapi_logger/response_placeholders';
-    const RESPONSE_ENABLED_XML_PATH = 'system/restapi_logger/api_response_logging_enabled';
-    const ENDPOINTS_TO_LOG_XML_PATH = 'system/restapi_logger/rest_endpoints_to_log';
-    const ENDPOINTS_TO_SKIP_XML_PATH = 'system/restapi_logger/rest_endpoints_to_skip';
-    const LOGGING_RETENTION_PERIOD = 'system/restapi_logger/logging_retention_period';
+    public const ENABLED_XML_PATH = 'system/restapi_logger/api_logging_enabled';
+    public const MAXIMUM_PAYLOAD_LENGTH_XML_PATH = 'system/restapi_logger/maximum_payload_length';
+    public const PAYLOAD_PLACEHOLDERS_XML_PATH = 'system/restapi_logger/payload_placeholders';
+    public const RESPONSE_PLACEHOLDERS_XML_PATH = 'system/restapi_logger/response_placeholders';
+    public const RESPONSE_ENABLED_XML_PATH = 'system/restapi_logger/api_response_logging_enabled';
+    public const HTTP_REQUEST_METHODD_TO_LOG_XML_PATH = 'system/restapi_logger/http_request_methods_to_log';
+    public const ENDPOINTS_TO_LOG_XML_PATH = 'system/restapi_logger/rest_endpoints_to_log';
+    public const ENDPOINTS_TO_SKIP_XML_PATH = 'system/restapi_logger/rest_endpoints_to_skip';
+    public const LOGGING_RETENTION_PERIOD = 'system/restapi_logger/logging_retention_period';
+    public const LOG_TABLE_OPTIMIZATION_ENABLED_XML_PATH = 'system/restapi_logger/log_table_optimization_enabled';
 
     /**
      * @return bool
@@ -85,6 +87,24 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @return array
      */
+    public function getHttpRequestMethodsToLog(): array
+    {
+        $methods = $this->scopeConfig->getValue(
+            self::HTTP_REQUEST_METHODD_TO_LOG_XML_PATH,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+
+        $allowedToLogMethods = [];
+        if ($methods) {
+            $allowedToLogMethods = explode(',', $methods);
+        }
+
+        return $allowedToLogMethods;
+    }
+
+    /**
+     * @return array
+     */
     public function getRestEndpointsToLogPayload(): array
     {
         $endpoints = $this->scopeConfig->getValue(
@@ -130,6 +150,17 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * @return bool
+     */
+    public function isLogTableOptimizationEnabled(): bool
+    {
+        return (int) $this->scopeConfig->getValue(
+            self::LOG_TABLE_OPTIMIZATION_ENABLED_XML_PATH,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
      * @param $pathInfo
      * @return bool
      */
@@ -153,6 +184,21 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
             if (fnmatch($endpoint, $pathInfo)) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $method
+     * @return bool
+     */
+    public function isHttpMethodAllowedToLog(string $method): bool
+    {
+        $allowedToLogMethods = $this->getHttpRequestMethodsToLog();
+
+        if (in_array(strtoupper($method), $allowedToLogMethods)) {
+            return true;
         }
 
         return false;

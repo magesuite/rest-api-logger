@@ -4,6 +4,8 @@ namespace MageSuite\RestApiLogger\Model\ResourceModel;
 
 class RestLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
+    public const REST_API_LOG_TABLE = 'rest_api_log';
+
     /**
      * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
@@ -27,7 +29,7 @@ class RestLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 
     protected function _construct()
     {
-        $this->_init('rest_api_log', 'log_id');
+        $this->_init(self::REST_API_LOG_TABLE, 'log_id');
     }
 
     /**
@@ -56,5 +58,11 @@ class RestLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         }
 
         return $this;
+    }
+
+    public function optimize()
+    {
+        $connection = $this->getConnection();
+        $connection->query(sprintf('OPTIMIZE TABLE %s', self::REST_API_LOG_TABLE));
     }
 }

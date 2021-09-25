@@ -13,6 +13,7 @@
                     /rest/*/V1/customers/isEmailAvailable
                     /rest/*/V1/carts/mine/*
                 </rest_endpoints_to_skip>
+                <log_table_optimization_enabled>0</log_table_optimization_enabled>
             </restapi_logger>
         </system>
     </default>
