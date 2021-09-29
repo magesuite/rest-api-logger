@@ -52,7 +52,7 @@ class CreateNewRestLog
             $this->restLog->setIpAddress($dataObject->getClientIp());
         }
 
-        if ($dataObject instanceof \Magento\Framework\Webapi\Rest\Response) {
+        if ($dataObject instanceof \Magento\Framework\Webapi\Rest\Response && $this->restLog) {
             $this->restLog->setResponseCode($dataObject->getStatusCode());
             $responseContentWithPlaceholders = $this->replacer->applyResponsePlaceholders($dataObject->getContent());
             $this->restLog->setResponse($responseContentWithPlaceholders);
