@@ -19,6 +19,11 @@ class RestApiResponseLogger
      */
     protected $request;
 
+    /**
+     * @param \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configHelper
+     * @param \MageSuite\RestApiLogger\Model\Command\CreateNewRestLog $createRestLog
+     * @param \Magento\Framework\App\RequestInterface $request
+     */
     public function __construct(
         \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configHelper,
         \MageSuite\RestApiLogger\Model\Command\CreateNewRestLog $createRestLog,
@@ -29,6 +34,10 @@ class RestApiResponseLogger
         $this->request = $request;
     }
 
+    /**
+     * @param \Magento\Framework\Webapi\Rest\Response $subject
+     * @param $result
+     */
     public function afterSendResponse(
         \Magento\Framework\Webapi\Rest\Response $subject,
         $result
@@ -37,6 +46,7 @@ class RestApiResponseLogger
             $this->configHelper->isApiLoggingEnabled()
             && $this->configHelper->isApiResponseLoggingEnabled()
             && $this->configHelper->isEndpointValidToLog($this->request->getPathInfo())
+            && $this->configHelper->isHttpMethodAllowedToLog($this->request->getMethod())
         ) {
             $this->createNewRestLogCommand->execute($subject);
         }

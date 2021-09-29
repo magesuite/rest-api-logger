@@ -14,6 +14,10 @@ class RestApiRequestLogger
      */
     protected $createNewRestLogCommand;
 
+    /**
+     * @param \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configHelper
+     * @param \MageSuite\RestApiLogger\Model\Command\CreateNewRestLog $createRestLog
+     */
     public function __construct(
         \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configHelper,
         \MageSuite\RestApiLogger\Model\Command\CreateNewRestLog $createRestLog
