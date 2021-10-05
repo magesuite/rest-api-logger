@@ -5,6 +5,9 @@
             <restapi_logger>
                 <api_logging_enabled>0</api_logging_enabled>
                 <maximum_payload_length>65000</maximum_payload_length>
+                <payload_placeholders>
+                    password:*******
+                </payload_placeholders>
                 <api_response_logging_enabled>0</api_response_logging_enabled>
                 <logging_retention_period>3</logging_retention_period>
                 <rest_endpoints_to_log>*</rest_endpoints_to_log>
