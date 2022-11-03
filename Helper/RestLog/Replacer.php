@@ -21,8 +21,7 @@ class Replacer
     public function __construct(
         \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $restLoggerConfiguration,
         \MageSuite\RestApiLogger\Helper\RestLog\Placeholder $placeholder
-    )
-    {
+    ) {
         $this->restLoggerConfiguration = $restLoggerConfiguration;
         $this->placeholder = $placeholder;
     }

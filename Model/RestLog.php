@@ -2,8 +2,7 @@
 
 namespace MageSuite\RestApiLogger\Model;
 
-class RestLog extends \Magento\Framework\Model\AbstractModel
-    implements \MageSuite\RestApiLogger\Api\Data\RestLogInterface
+class RestLog extends \Magento\Framework\Model\AbstractModel implements \MageSuite\RestApiLogger\Api\Data\RestLogInterface
 {
     protected function _construct()
     {

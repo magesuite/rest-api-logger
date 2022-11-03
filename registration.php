@@ -4,4 +4,3 @@
     'MageSuite_RestApiLogger',
     __DIR__
 );
-
