@@ -28,7 +28,6 @@ class RestLogDataProvider extends \Magento\Framework\View\Element\UiComponent\Da
 
         $this->restLogRepository = $restLogRepository;
         $this->searchResultFactory = $searchResultFactory;
-
     }
 
     public function getSearchResult()

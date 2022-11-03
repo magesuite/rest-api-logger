@@ -33,8 +33,7 @@ class CreateNewRestLog
         \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface $restLogRepository,
         \MageSuite\RestApiLogger\Helper\RestLog\Replacer $replacer,
         \MageSuite\RestApiLogger\Helper\RestLog\Formatter $formatter
-    )
-    {
+    ) {
         $this->restLogRepository = $restLogRepository;
         $this->replacer = $replacer;
         $this->formatter = $formatter;

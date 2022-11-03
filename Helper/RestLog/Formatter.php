@@ -14,8 +14,7 @@ class Formatter
      */
     public function __construct(
         \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $restLoggerConfiguration
-    )
-    {
+    ) {
         $this->restLoggerConfiguration = $restLoggerConfiguration;
     }
 

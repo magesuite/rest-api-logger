@@ -14,8 +14,7 @@ class Type implements \Magento\Framework\Data\OptionSourceInterface
      */
     public function __construct(
         \MageSuite\RestApiLogger\Model\Config\Source\HttpRequestMethod $httpRequestMethodSource
-    )
-    {
+    ) {
         $this->httpRequestMethodSource = $httpRequestMethodSource;
     }
 

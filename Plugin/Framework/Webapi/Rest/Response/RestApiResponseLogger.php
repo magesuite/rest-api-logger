@@ -42,13 +42,14 @@ class RestApiResponseLogger
         \Magento\Framework\Webapi\Rest\Response $subject,
         $result
     ) {
-        if (
-            $this->configHelper->isApiLoggingEnabled()
-            && $this->configHelper->isApiResponseLoggingEnabled()
-            && $this->configHelper->isEndpointValidToLog($this->request->getPathInfo())
-            && $this->configHelper->isHttpMethodAllowedToLog($this->request->getMethod())
-        ) {
-            $this->createNewRestLogCommand->execute($subject);
+        if (!$this->configHelper->isApiLoggingEnabled() || !$this->configHelper->isApiResponseLoggingEnabled()) {
+            return;
         }
+
+        if (!$this->configHelper->isEndpointValidToLog($this->request->getPathInfo()) || !$this->configHelper->isHttpMethodAllowedToLog($this->request->getMethod())) {
+            return;
+        }
+
+        $this->createNewRestLogCommand->execute($subject);
     }
 }

@@ -9,7 +9,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
     public const PAYLOAD_PLACEHOLDERS_XML_PATH = 'system/restapi_logger/payload_placeholders';
     public const RESPONSE_PLACEHOLDERS_XML_PATH = 'system/restapi_logger/response_placeholders';
     public const RESPONSE_ENABLED_XML_PATH = 'system/restapi_logger/api_response_logging_enabled';
-    public const HTTP_REQUEST_METHODD_TO_LOG_XML_PATH = 'system/restapi_logger/http_request_methods_to_log';
+    public const HTTP_REQUEST_METHOD_TO_LOG_XML_PATH = 'system/restapi_logger/http_request_methods_to_log';
     public const ENDPOINTS_TO_LOG_XML_PATH = 'system/restapi_logger/rest_endpoints_to_log';
     public const ENDPOINTS_TO_SKIP_XML_PATH = 'system/restapi_logger/rest_endpoints_to_skip';
     public const LOGGING_RETENTION_PERIOD = 'system/restapi_logger/logging_retention_period';
@@ -20,7 +20,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isApiLoggingEnabled(): bool
     {
-        return $this->scopeConfig->getValue(
+        return $this->scopeConfig->isSetFlag(
             self::ENABLED_XML_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
@@ -31,7 +31,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isApiResponseLoggingEnabled(): bool
     {
-        return $this->scopeConfig->getValue(
+        return $this->scopeConfig->isSetFlag(
             self::RESPONSE_ENABLED_XML_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
@@ -53,7 +53,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getPayloadPlaceholders(): array
     {
-        $placeholders = $this->scopeConfig->getValue(
+        $placeholders = (string)$this->scopeConfig->getValue(
             self::PAYLOAD_PLACEHOLDERS_XML_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
@@ -71,7 +71,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getResponsePlaceholders(): array
     {
-        $placeholders = $this->scopeConfig->getValue(
+        $placeholders = (string)$this->scopeConfig->getValue(
             self::RESPONSE_PLACEHOLDERS_XML_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
@@ -89,8 +89,8 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHttpRequestMethodsToLog(): array
     {
-        $methods = $this->scopeConfig->getValue(
-            self::HTTP_REQUEST_METHODD_TO_LOG_XML_PATH,
+        $methods = (string)$this->scopeConfig->getValue(
+            self::HTTP_REQUEST_METHOD_TO_LOG_XML_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
 
@@ -107,7 +107,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getRestEndpointsToLogPayload(): array
     {
-        $endpoints = $this->scopeConfig->getValue(
+        $endpoints = (string)$this->scopeConfig->getValue(
             self::ENDPOINTS_TO_LOG_XML_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
@@ -125,7 +125,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getRestEndpointsToSkipPayload(): array
     {
-        $endpoints = $this->scopeConfig->getValue(
+        $endpoints = (string)$this->scopeConfig->getValue(
             self::ENDPOINTS_TO_SKIP_XML_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
@@ -154,7 +154,7 @@ class RestLogger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isLogTableOptimizationEnabled(): bool
     {
-        return (int) $this->scopeConfig->getValue(
+        return $this->scopeConfig->isSetFlag(
             self::LOG_TABLE_OPTIMIZATION_ENABLED_XML_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
