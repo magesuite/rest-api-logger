@@ -94,7 +94,7 @@
             <settings>
                 <filter>select</filter>
                 <dataType>select</dataType>
-                <options class="MageSuite\RestApiLogger\Model\HttpRequestMethod\Type"/>
+                <options class="MageSuite\RestApiLogger\Model\Config\Source\HttpMethod"/>
                 <label translate="true">HTTP Method</label>
             </settings>
         </column>
@@ -102,6 +102,14 @@
             <settings>
                 <filter>text</filter>
                 <label translate="true">IP Address</label>
+            </settings>
+        </column>
+        <column name="integration_id" component="Magento_Ui/js/grid/columns/select" sortOrder="60">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="MageSuite\RestApiLogger\Model\Config\Source\Integration"/>
+                <label translate="true">Integration</label>
             </settings>
         </column>
     </columns>

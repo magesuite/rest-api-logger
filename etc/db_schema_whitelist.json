@@ -1,0 +1,23 @@
+{
+    "rest_api_log": {
+        "column": {
+            "log_id": true,
+            "endpoint": true,
+            "payload": true,
+            "response_code": true,
+            "response": true,
+            "http_method": true,
+            "ip_address": true,
+            "integration_id": true,
+            "timestamp": true
+        },
+        "index": {
+            "REST_API_LOG_HTTP_METHOD": true,
+            "REST_API_LOG_IP_ADDRESS": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "REST_API_LOG_INTEGRATION_ID_INTEGRATION_INTEGRATION_ID": true
+        }
+    }
+}

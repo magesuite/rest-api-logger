@@ -12,6 +12,7 @@ interface RestLogInterface
     public const TIMESTAMP = 'timestamp';
     public const HTTP_METHOD = 'http_method';
     public const IP_ADDRESS = 'ip_address';
+    public const INTEGRATION_ID = 'integration_id';
 
     /**
      * @param $logId
@@ -100,4 +101,15 @@ interface RestLogInterface
      * @return string|null
      */
     public function getIpAddress(): ?string;
+
+    /**
+     * @return int|null
+     */
+    public function getIntegrationId(): ?int;
+
+    /**
+     * @param int $integrationId
+     * @return self
+     */
+    public function setIntegrationId($integrationId);
 }

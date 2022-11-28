@@ -4,39 +4,26 @@ namespace MageSuite\RestApiLogger\Model\Command;
 
 class CreateNewRestLog
 {
-    /**
-     * @var \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface
-     */
-    protected $restLogRepository;
+    protected \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface $restLogRepository;
 
-    /**
-     * @var \MageSuite\RestApiLogger\Api\Data\RestLogInterface
-     */
-    protected $restLog;
+    protected \MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog;
 
-    /**
-     * @var \MageSuite\RestApiLogger\Helper\RestLog\Replacer
-     */
-    protected $replacer;
+    protected \MageSuite\RestApiLogger\Helper\RestLog\Replacer $replacer;
 
-    /**
-     * @var \MageSuite\RestApiLogger\Helper\RestLog\Formatter
-     */
-    protected $formatter;
+    protected \MageSuite\RestApiLogger\Helper\RestLog\Formatter $formatter;
 
-    /**
-     * @param \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface $restLogRepository
-     * @param \MageSuite\RestApiLogger\Helper\RestLog\Replacer $replacer
-     * @param \MageSuite\RestApiLogger\Helper\RestLog\Formatter $formatter
-     */
+    protected \Magento\Authorization\Model\UserContextInterface $userContext;
+
     public function __construct(
         \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface $restLogRepository,
         \MageSuite\RestApiLogger\Helper\RestLog\Replacer $replacer,
-        \MageSuite\RestApiLogger\Helper\RestLog\Formatter $formatter
+        \MageSuite\RestApiLogger\Helper\RestLog\Formatter $formatter,
+        \Magento\Authorization\Model\UserContextInterface $userContext
     ) {
         $this->restLogRepository = $restLogRepository;
         $this->replacer = $replacer;
         $this->formatter = $formatter;
+        $this->userContext = $userContext;
     }
 
     public function execute($dataObject)
@@ -55,6 +42,10 @@ class CreateNewRestLog
             $this->restLog->setResponseCode($dataObject->getStatusCode());
             $responseContentWithPlaceholders = $this->replacer->applyResponsePlaceholders($dataObject->getContent());
             $this->restLog->setResponse($responseContentWithPlaceholders);
+
+            if ($this->userContext->getUserType() == \Magento\Authorization\Model\UserContextInterface::USER_TYPE_INTEGRATION) {
+                $this->restLog->setIntegrationId($this->userContext->getUserId());
+            }
         }
 
         $this->restLogRepository->save($this->restLog);
