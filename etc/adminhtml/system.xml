@@ -44,7 +44,7 @@
                 </field>
                 <field id="http_request_methods_to_log" translate="label comment" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>HTTP request methods to log</label>
-                    <source_model>MageSuite\RestApiLogger\Model\Config\Source\HttpRequestMethod</source_model>
+                    <source_model>MageSuite\RestApiLogger\Model\Config\Source\HttpMethod</source_model>
                     <can_be_empty>1</can_be_empty>
                     <depends>
                         <field id="api_logging_enabled">1</field>

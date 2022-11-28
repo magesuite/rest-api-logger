@@ -7,10 +7,12 @@
         <column xsi:type="text" name="response" nullable="false" comment="Rest Api Response Logged"/>
         <column xsi:type="varchar" name="http_method" nullable="false" comment="HTTP Request Method"/>
         <column xsi:type="varchar" name="ip_address" nullable="false" comment="API Client IP Address"/>
+        <column xsi:type="int" name="integration_id" unsigned="true" nullable="true" comment="Integration ID"/>
         <column xsi:type="timestamp" name="timestamp" comment="Time"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="log_id"/>
         </constraint>
+        <constraint xsi:type="foreign" referenceId="REST_API_LOG_INTEGRATION_ID_INTEGRATION_INTEGRATION_ID" table="rest_api_log" column="integration_id" referenceTable="integration" referenceColumn="integration_id" onDelete="SET NULL" />
         <index referenceId="INDEX_HTTP_METHOD" indexType="btree">
             <column name="http_method"/>
         </index>

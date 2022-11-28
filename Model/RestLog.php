@@ -136,4 +136,20 @@ class RestLog extends \Magento\Framework\Model\AbstractModel implements \MageSui
     {
         return $this->getData(self::IP_ADDRESS);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIntegrationId(): ?int
+    {
+        return $this->getData(self::INTEGRATION_ID);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setIntegrationId($integrationId)
+    {
+        return $this->setData(self::INTEGRATION_ID, $integrationId);
+    }
 }
