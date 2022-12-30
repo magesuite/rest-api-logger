@@ -1,9 +1,24 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="MageSuite_RestApiLogger::rest_api_logger" title="Rest Api Logger" translate="title"
-             module="MageSuite_RestApiLogger"
-             sortOrder="55" parent="Magento_Backend::system_convert" action="restlogs/log/index"
-             resource="Magento_ImportExport::history"/>
+        <add
+            id="MageSuite_RestApiLogger::rest_api_logger"
+            title="Rest Api Logger"
+            translate="title"
+            module="MageSuite_RestApiLogger"
+            sortOrder="55"
+            parent="Magento_Backend::system_convert"
+            action="restlogs/log/index"
+            resource="MageSuite_RestApiLogger::rest_api_logger"
+        />
+        <add
+            id="MageSuite_ErpConnectorSubmenu::rest_api_logger"
+            title="Rest API logger"
+            module="MageSuite_RestApiLogger"
+            sortOrder="90"
+            parent="MageSuite_ErpConnectorSubmenu::submenu"
+            action="restlogs/log/index"
+            resource="MageSuite_RestApiLogger::rest_api_logger"
+        />
     </menu>
 </config>
