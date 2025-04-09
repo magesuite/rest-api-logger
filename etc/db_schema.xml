@@ -19,5 +19,8 @@
         <index referenceId="INDEX_IP_ADDRESS" indexType="btree">
             <column name="ip_address"/>
         </index>
+        <index referenceId="INDEX_TIMESTAMP" indexType="btree">
+            <column name="timestamp"/>
+        </index>
     </table>
 </schema>

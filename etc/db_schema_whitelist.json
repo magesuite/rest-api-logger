@@ -13,7 +13,8 @@
         },
         "index": {
             "REST_API_LOG_HTTP_METHOD": true,
-            "REST_API_LOG_IP_ADDRESS": true
+            "REST_API_LOG_IP_ADDRESS": true,
+            "REST_API_LOG_TIMESTAMP": true
         },
         "constraint": {
             "PRIMARY": true,
