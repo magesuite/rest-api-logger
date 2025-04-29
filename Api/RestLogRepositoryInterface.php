@@ -26,7 +26,7 @@ interface RestLogRepositoryInterface
      * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria
      * @return \MageSuite\RestApiLogger\Api\Data\RestLogSearchResultInterface
      */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null);
+    public function getList(?\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null);
 
     /**
      * @param \MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog

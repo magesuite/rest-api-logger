@@ -75,7 +75,7 @@ class RestLogRepository implements \MageSuite\RestApiLogger\Api\RestLogRepositor
         return $this->restLogResource->save($restLog);
     }
 
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null)
+    public function getList(?\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null)
     {
         $collection = $this->collectionFactory->create();
 
