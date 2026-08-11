@@ -1,35 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Helper\RestLog;
 
 class Replacer
 {
-    /**
-     * @var \MageSuite\RestApiLogger\Helper\Configuration\RestLogger
-     */
-    protected $restLoggerConfiguration;
-
-    /**
-     * @var \Magento\Catalog\Model\View\Asset\Placeholder
-     */
-    protected $placeholder;
-
-    /**
-     * @param \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $restLoggerConfiguration
-     * @param Placeholder $placeholder
-     */
     public function __construct(
-        \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $restLoggerConfiguration,
-        \MageSuite\RestApiLogger\Helper\RestLog\Placeholder $placeholder
+        protected \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $restLoggerConfiguration,
+        protected \MageSuite\RestApiLogger\Helper\RestLog\Placeholder $placeholder
     ) {
-        $this->restLoggerConfiguration = $restLoggerConfiguration;
-        $this->placeholder = $placeholder;
     }
 
-    /**
-     * @param string $payloadContent
-     * @return string
-     */
     public function applyPayloadPlaceholders(string $payloadContent): string
     {
         $placeholders = $this->restLoggerConfiguration->getPayloadPlaceholders();
@@ -37,10 +19,6 @@ class Replacer
         return $this->applyPlaceholdersToLogContent($payloadContent, $placeholders);
     }
 
-    /**
-     * @param string $responseContent
-     * @return string
-     */
     public function applyResponsePlaceholders(string $responseContent): string
     {
         $placeholders = $this->restLoggerConfiguration->getResponsePlaceholders();
@@ -48,19 +26,19 @@ class Replacer
         return $this->applyPlaceholdersToLogContent($responseContent, $placeholders);
     }
 
-    /**
-     * @param string $logContent
-     * @return string
-     */
     public function applyPlaceholdersToLogContent(string $logContent, array $placeholders): string
     {
+        if (empty($logContent)) {
+            return $logContent;
+        }
+
         $decodedLogContent = json_decode($logContent, true);
-        if (empty($logContent) || json_last_error() !== 0) {
+
+        if (json_last_error() !== 0 || !is_array($decodedLogContent)) {
             return $logContent;
         }
 
         foreach ($placeholders as $placeholder) {
-
             $placeholderFieldName = $this->placeholder->getFieldName($placeholder);
             $placeholderContent = $this->placeholder->getContent($placeholder);
 
@@ -72,12 +50,6 @@ class Replacer
         return json_encode($decodedLogContent);
     }
 
-    /**
-     * @param array $logContent
-     * @param string $logFieldName
-     * @param string $logFieldValuePlaceholder
-     * @return array
-     */
     public function replaceLogFieldsContent(array $logContent, string $logFieldName, string $logFieldValuePlaceholder): array
     {
         foreach ($logContent as $field => $value) {
