@@ -1,36 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Api;
 
 interface RestLogRepositoryInterface
 {
-    /**
-     * @return \MageSuite\RestApiLogger\Api\Data\RestLogInterface
-     */
-    public function create();
+    public function create(): \MageSuite\RestApiLogger\Api\Data\RestLogInterface;
 
-    /**
-     * @param int $id
-     * @return \MageSuite\RestApiLogger\Api\Data\RestLogInterface
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     */
-    public function getById($id);
+    public function getById(int $id): \MageSuite\RestApiLogger\Api\Data\RestLogInterface;
 
-    /**
-     * @param \MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog
-     * @return \MageSuite\RestApiLogger\Api\Data\RestLogInterface
-     */
-    public function save(\MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog);
+    public function save(\MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog): \MageSuite\RestApiLogger\Api\Data\RestLogInterface;
 
-    /**
-     * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria
-     * @return \MageSuite\RestApiLogger\Api\Data\RestLogSearchResultInterface
-     */
-    public function getList(?\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null);
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria): \Magento\Framework\Api\SearchResultsInterface;
 
-    /**
-     * @param \MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog
-     * @return void
-     */
-    public function delete(\MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog);
+    public function delete(\MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog): void;
 }

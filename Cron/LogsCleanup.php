@@ -1,28 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Cron;
 
 class LogsCleanup
 {
-    /**
-     * @var \MageSuite\RestApiLogger\Helper\Configuration\RestLogger
-     */
-    protected $configuration;
-
-    /**
-     * @var \MageSuite\RestApiLogger\Model\ResourceModel\RestLog
-     */
-    protected $restLogResource;
-
     public function __construct(
-        \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configuration,
-        \MageSuite\RestApiLogger\Model\ResourceModel\RestLog $restLogResource
-    ) {
-        $this->configuration = $configuration;
-        $this->restLogResource = $restLogResource;
-    }
+        protected \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configuration,
+        protected \MageSuite\RestApiLogger\Model\ResourceModel\RestLog $restLogResource
+    ) {}
 
-    public function execute()
+    public function execute(): void
     {
         if (!$this->configuration->isApiLoggingEnabled()) {
             return;
@@ -35,6 +24,7 @@ class LogsCleanup
         }
 
         $this->restLogResource->clean($daysAgo);
+
         if ($this->configuration->isLogTableOptimizationEnabled()) {
             $this->restLogResource->optimize();
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Model\ResourceModel\RestLog;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
@@ -13,9 +15,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         $this->_init(\MageSuite\RestApiLogger\Model\RestLog::class, \MageSuite\RestApiLogger\Model\ResourceModel\RestLog::class);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function _afterLoad()
     {
         foreach ($this->getItems() as $item) {
@@ -25,9 +24,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         return parent::_afterLoad();
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function _getConditionSql($fieldName, $condition)
     {
         if ($fieldName === '`endpoint`') {
@@ -39,9 +35,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         return parent::_getConditionSql($fieldName, $condition);
     }
 
-    /**
-     * @param \Magento\Framework\DataObject $item
-     */
     protected function buildItem(\Magento\Framework\DataObject $item)
     {
         $item->setEndpoint($this->getEndpoint($item));
@@ -49,10 +42,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         $item->setResponse($this->getResponse($item));
     }
 
-    /**
-     * @param \Magento\Framework\DataObject $item
-     * @return string
-     */
     protected function getEndpoint(\Magento\Framework\DataObject $item): string
     {
         $endpoint = $item->getEndpoint();
@@ -64,13 +53,9 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         return $formattedEndpoint;
     }
 
-    /**
-     * @param \Magento\Framework\DataObject $item
-     * @return string
-     */
     public function getPayload(\Magento\Framework\DataObject $item): string
     {
-        $htmlElementId = $item->getId();
+        $htmlElementId = $item->getLogId();
         $payload = $item->getPayload();
         $payloadGridContent = substr($payload, 0, self::GRID_PAYLOAD_MAXIMUM_LENGTH);
 
@@ -86,13 +71,9 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         return $payloadGridContent;
     }
 
-    /**
-     * @param \Magento\Framework\DataObject $item
-     * @return string
-     */
     public function getResponse(\Magento\Framework\DataObject $item): string
     {
-        $htmlElementId = $item->getId();
+        $htmlElementId = $item->getLogId();
         $response = $item->getResponse();
         $responseGridContent = substr($response, 0, self::GRID_RESPONSE_MAXIMUM_LENGTH);
 
@@ -108,12 +89,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         return $responseGridContent;
     }
 
-    /**
-     * @param int $id
-     * @param string $title
-     * @param string $content
-     * @return string
-     */
     public function getPayloadPreviewLink(int $logId, string $content): string
     {
         $formattedContent = json_encode(json_decode($content), JSON_PRETTY_PRINT);

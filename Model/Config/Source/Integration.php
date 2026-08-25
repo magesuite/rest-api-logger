@@ -1,28 +1,34 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MageSuite\RestApiLogger\Model\Config\Source;
 
 class Integration implements \Magento\Framework\Data\OptionSourceInterface
 {
-    protected \Magento\Integration\Model\ResourceModel\Integration\Collection $collection;
+    protected ?array $options = null;
 
-    public function __construct(\Magento\Integration\Model\ResourceModel\Integration\CollectionFactory $collectionFactory)
-    {
-        $this->collection = $collectionFactory->create()->load();
-    }
+    public function __construct(
+        protected \Magento\Integration\Model\ResourceModel\Integration\CollectionFactory $collectionFactory
+    ) {}
 
     public function toOptionArray(): array
     {
-        $options = [];
+        if ($this->options !== null) {
+            return $this->options;
+        }
 
-        foreach ($this->collection as $item) {
-            $options[] = [
+        $collection = $this->collectionFactory->create()
+            ->addFieldToSelect(['integration_id', 'name']);
+        $this->options = [];
+
+        foreach ($collection as $item) {
+            $this->options[] = [
                 'value' => $item->getIntegrationId(),
                 'label' => $item->getName()
             ];
         }
 
-        return $options;
+        return $this->options;
     }
 }

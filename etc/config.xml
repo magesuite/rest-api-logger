@@ -18,6 +18,7 @@
                     /rest/*/V1/carts/mine/*
                 </rest_endpoints_to_skip>
                 <log_table_optimization_enabled>0</log_table_optimization_enabled>
+                <log_only_integration_request>1</log_only_integration_request>
             </restapi_logger>
         </system>
     </default>

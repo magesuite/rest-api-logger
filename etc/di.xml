@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="MageSuite\RestApiLogger\Api\Data\RestLogInterface" type="MageSuite\RestApiLogger\Model\RestLog" />
-    <preference for="MageSuite\RestApiLogger\Api\Data\RestLogSearchResultInterface" type="MageSuite\RestApiLogger\Model\RestLogSearchResult" />
     <preference for="MageSuite\RestApiLogger\Api\RestLogRepositoryInterface" type="MageSuite\RestApiLogger\Model\RestLogRepository" />
 
     <type name="Magento\Webapi\Controller\Rest">

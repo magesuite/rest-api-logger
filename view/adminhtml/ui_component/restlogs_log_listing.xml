@@ -19,7 +19,7 @@
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Magento_Config::config</aclResource>
+        <aclResource>MageSuite_RestApiLogger::rest_api_logger</aclResource>
         <dataProvider class="MageSuite\RestApiLogger\Ui\DataProvider\RestLogDataProvider" name="restlogs_log_listing_data_source">
             <settings>
                 <requestFieldName>log_id</requestFieldName>
