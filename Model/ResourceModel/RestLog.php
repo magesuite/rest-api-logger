@@ -1,42 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Model\ResourceModel;
 
 class RestLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     public const REST_API_LOG_TABLE = 'rest_api_log';
 
-    /**
-     * @var \Magento\Framework\Stdlib\DateTime\DateTime
-     */
-    protected $date;
-
-    /**
-     * @var \Magento\Framework\Stdlib\DateTime
-     */
-    protected $dateTime;
-
     public function __construct(
         \Magento\Framework\Model\ResourceModel\Db\Context $context,
-        \Magento\Framework\Stdlib\DateTime\DateTime $date,
-        \Magento\Framework\Stdlib\DateTime $dateTime,
-        $connectionName = null
+        protected \Magento\Framework\Stdlib\DateTime\DateTime $date,
+        protected \Magento\Framework\Stdlib\DateTime $dateTime,
+        ?string $connectionName = null
     ) {
-        $this->date = $date;
-        $this->dateTime = $dateTime;
         parent::__construct($context, $connectionName);
     }
 
-    protected function _construct()
+    protected function _construct(): void
     {
         $this->_init(self::REST_API_LOG_TABLE, 'log_id');
     }
 
-    /**
-     * @param int $daysAgo
-     * @return $this
-     */
-    public function clean(int $daysAgo)
+    public function clean(int $daysAgo): self
     {
         $cleanTime = $this->date->timestamp("-{$daysAgo} days");
         $connection = $this->getConnection();
@@ -60,9 +46,11 @@ class RestLog extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         return $this;
     }
 
-    public function optimize()
+    public function optimize(): self
     {
         $connection = $this->getConnection();
         $connection->query(sprintf('OPTIMIZE TABLE %s', self::REST_API_LOG_TABLE));
+
+        return $this;
     }
 }

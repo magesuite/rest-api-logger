@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Helper\RestLog;
 
 class Placeholder
 {
     public const PLACEHOLDER_PARTS_SEPARATOR = ':';
 
-    /**
-     * @param string $placeholder
-     * @return string|null
-     */
     public function getFieldName(string $placeholder): ?string
     {
         $placeholderParts = explode(self::PLACEHOLDER_PARTS_SEPARATOR, $placeholder);
@@ -25,10 +23,6 @@ class Placeholder
         return trim($placeholderParts[0]);
     }
 
-    /**
-     * @param string $placeholder
-     * @return string|null
-     */
     public function getContent(string $placeholder): ?string
     {
         $placeholderParts = explode(self::PLACEHOLDER_PARTS_SEPARATOR, $placeholder);
@@ -44,10 +38,6 @@ class Placeholder
         return trim($placeholderParts[1]);
     }
 
-    /**
-     * @param string|null $placeholderPart
-     * @return bool
-     */
     public function isPlaceholderPartEmpty(?string $placeholderPart): bool
     {
         if (empty($placeholderPart) && $placeholderPart !== '0') {

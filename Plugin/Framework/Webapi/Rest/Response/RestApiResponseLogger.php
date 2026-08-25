@@ -1,43 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Plugin\Framework\Webapi\Rest\Response;
 
 class RestApiResponseLogger
 {
-    /**
-     * @var \MageSuite\RestApiLogger\Helper\Configuration\RestLogger;
-     */
-    protected $configHelper;
-
-    /**
-     * @var \MageSuite\RestApiLogger\Model\Command\CreateNewRestLog
-     */
-    protected $createNewRestLogCommand;
-
-    /**
-     * @var \Magento\Framework\App\RequestInterface
-     */
-    protected $request;
-
-    /**
-     * @param \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configHelper
-     * @param \MageSuite\RestApiLogger\Model\Command\CreateNewRestLog $createRestLog
-     * @param \Magento\Framework\App\RequestInterface $request
-     */
     public function __construct(
-        \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configHelper,
-        \MageSuite\RestApiLogger\Model\Command\CreateNewRestLog $createRestLog,
-        \Magento\Framework\App\RequestInterface $request
-    ) {
-        $this->configHelper = $configHelper;
-        $this->createNewRestLogCommand = $createRestLog;
-        $this->request = $request;
-    }
+        protected \MageSuite\RestApiLogger\Helper\Configuration\RestLogger $configHelper,
+        protected \MageSuite\RestApiLogger\Model\Command\CreateNewRestLog $createRestLog,
+        protected \Magento\Framework\App\RequestInterface $request
+    ) {}
 
-    /**
-     * @param \Magento\Framework\Webapi\Rest\Response $subject
-     * @param $result
-     */
     public function afterSendResponse(
         \Magento\Framework\Webapi\Rest\Response $subject,
         $result
@@ -50,6 +24,6 @@ class RestApiResponseLogger
             return;
         }
 
-        $this->createNewRestLogCommand->execute($subject);
+        $this->createRestLog->execute($subject);
     }
 }

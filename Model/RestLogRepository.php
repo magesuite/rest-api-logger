@@ -1,56 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Model;
 
 class RestLogRepository implements \MageSuite\RestApiLogger\Api\RestLogRepositoryInterface
 {
-    /**
-     * @var ResourceModel\RestLog
-     */
-    protected $restLogResource;
-
-    /**
-     * @var \MageSuite\RestApiLogger\Api\Data\RestLogInterfaceFactory
-     */
-    protected $restLogInterfaceFactory;
-
-    /**
-     * @var \MageSuite\RestApiLogger\Model\ResourceModel\RestLog\CollectionFactory
-     */
-    protected $collectionFactory;
-
-    /**
-     * @var \Magento\Framework\Api\SearchCriteriaBuilder
-     */
-    protected $searchCriteriaBuilder;
-
-    /**
-     * @var \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface
-     */
-    protected $collectionProcessor;
-
-    /**
-     * @var \Magento\Framework\Api\SearchResultsInterface
-     */
-    protected $searchResultFactory;
-
     public function __construct(
-        \MageSuite\RestApiLogger\Model\ResourceModel\RestLog $restLogResource,
-        \MageSuite\RestApiLogger\Api\Data\RestLogInterfaceFactory $restLogInterfaceFactory,
-        \MageSuite\RestApiLogger\Model\ResourceModel\RestLog\CollectionFactory $collectionFactory,
-        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
-        \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
-        \Magento\Framework\Api\SearchResultsInterfaceFactory $searchResultFactory
-    ) {
-        $this->restLogResource = $restLogResource;
-        $this->restLogInterfaceFactory = $restLogInterfaceFactory;
-        $this->collectionFactory = $collectionFactory;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->collectionProcessor = $collectionProcessor;
-        $this->searchResultFactory = $searchResultFactory;
-    }
+        protected \MageSuite\RestApiLogger\Model\ResourceModel\RestLog $restLogResource,
+        protected \MageSuite\RestApiLogger\Api\Data\RestLogInterfaceFactory $restLogInterfaceFactory,
+        protected \MageSuite\RestApiLogger\Model\ResourceModel\RestLog\CollectionFactory $collectionFactory,
+        protected \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
+        protected \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface $collectionProcessor,
+        protected \Magento\Framework\Api\SearchResultsInterfaceFactory $searchResultFactory
+    ) {}
 
-    public function create()
+    public function create(): \MageSuite\RestApiLogger\Api\Data\RestLogInterface
     {
         $restLog = $this->restLogInterfaceFactory->create();
         $restLog->setTimestamp(time());
@@ -58,7 +23,7 @@ class RestLogRepository implements \MageSuite\RestApiLogger\Api\RestLogRepositor
         return $restLog;
     }
 
-    public function getById($id)
+    public function getById(int $id): \MageSuite\RestApiLogger\Api\Data\RestLogInterface
     {
         $restLog = $this->restLogInterfaceFactory->create();
         $restLog->load($id);
@@ -70,20 +35,24 @@ class RestLogRepository implements \MageSuite\RestApiLogger\Api\RestLogRepositor
         return $restLog;
     }
 
-    public function save(\MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog)
+    public function save(\MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog): \MageSuite\RestApiLogger\Api\Data\RestLogInterface
     {
-        return $this->restLogResource->save($restLog);
+        try {
+            $this->restLogResource->save($restLog);
+        } catch (\Exception $exception) {
+            throw new \Magento\Framework\Exception\CouldNotSaveException(
+                __('Could not save the rest api log: %1', $exception->getMessage()),
+                $exception
+            );
+        }
+
+        return $restLog;
     }
 
-    public function getList(?\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null)
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria): \Magento\Framework\Api\SearchResultsInterface
     {
         $collection = $this->collectionFactory->create();
-
-        if (empty($searchCriteria)) {
-            $searchCriteria = $this->searchCriteriaBuilder->create();
-        } else {
-            $this->collectionProcessor->process($searchCriteria, $collection);
-        }
+        $this->collectionProcessor->process($searchCriteria, $collection);
 
         $searchResult = $this->searchResultFactory->create();
         $searchResult->setItems($collection->getItems());
@@ -94,7 +63,7 @@ class RestLogRepository implements \MageSuite\RestApiLogger\Api\RestLogRepositor
         return $searchResult;
     }
 
-    public function delete(\MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog)
+    public function delete(\MageSuite\RestApiLogger\Api\Data\RestLogInterface $restLog): void
     {
         $this->restLogResource->delete($restLog);
     }

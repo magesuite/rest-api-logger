@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Api\Data;
 
 interface RestLogInterface
@@ -15,92 +17,92 @@ interface RestLogInterface
     public const INTEGRATION_ID = 'integration_id';
 
     /**
-     * @param $logId
-     * @return $this
+     * @param int $logId
+     * @return self
      */
-    public function setLogId($logId);
+    public function setLogId(int $logId): self;
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getLogId();
+    public function getLogId(): int;
 
     /**
      * @param string $endpoint
-     * @return $this
+     * @return self
      */
-    public function setEndpoint($endpoint);
+    public function setEndpoint(string $endpoint): self;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getEndpoint();
+    public function getEndpoint(): string;
 
     /**
      * @param string $payload
+     * @return self
+     */
+    public function setPayload(string $payload): self;
+
+    /**
      * @return string
      */
-    public function setPayload($payload);
+    public function getPayload(): string;
 
     /**
-     * @return string|null
+     * @param int $timestamp
+     * @return self
      */
-    public function getPayload();
+    public function setTimestamp(int $timestamp): self;
 
     /**
-     * @param string $timestamp
-     * @return string|null
+     * @return int
      */
-    public function setTimestamp($timestamp);
-
-    /**
-     * @return string|null
-     */
-    public function getTimestamp();
+    public function getTimestamp(): int;
 
     /**
      * @param int $code
-     * @return int
+     * @return self
      */
-    public function setResponseCode($code);
+    public function setResponseCode(int $code): self;
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getResponseCode();
+    public function getResponseCode(): int;
 
     /**
      * @param string $response
-     * @return string
+     * @return self
      */
-    public function setResponse($response);
+    public function setResponse(string $response): self;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getResponse();
+    public function getResponse(): string;
 
     /**
      * @param string $method
-     * @return string
+     * @return self
      */
-    public function setHttpMethod(string $method);
+    public function setHttpMethod(string $method): self;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getHttpMethod(): ?string;
+    public function getHttpMethod(): string;
 
     /**
      * @param string $ipAddress
-     * @return string
+     * @return self
      */
-    public function setIpAddress(string $ipAddress);
+    public function setIpAddress(string $ipAddress): self;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getIpAddress(): ?string;
+    public function getIpAddress(): string;
 
     /**
      * @return int|null
@@ -111,5 +113,5 @@ interface RestLogInterface
      * @param int $integrationId
      * @return self
      */
-    public function setIntegrationId($integrationId);
+    public function setIntegrationId(int $integrationId): self;
 }

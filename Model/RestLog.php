@@ -1,154 +1,102 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\RestApiLogger\Model;
 
 class RestLog extends \Magento\Framework\Model\AbstractModel implements \MageSuite\RestApiLogger\Api\Data\RestLogInterface
 {
-    protected function _construct()
+    protected function _construct(): void
     {
         $this->_init(\MageSuite\RestApiLogger\Model\ResourceModel\RestLog::class);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setLogId($logId)
+    public function setLogId(int $logId): self
     {
         return $this->setData(self::LOG_ID, $logId);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getLogId()
+    public function getLogId(): int
     {
-        return $this->getData(self::LOG_ID);
+        return (int)$this->getData(self::LOG_ID);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setEndpoint($endpoint)
+    public function setEndpoint(string $endpoint): self
     {
         return $this->setData(self::ENDPOINT, $endpoint);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
-        return $this->getData(self::ENDPOINT);
+        return (string)$this->getData(self::ENDPOINT);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setPayload($payload)
+    public function setPayload(string $payload): self
     {
         return $this->setData(self::PAYLOAD, $payload);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getPayload()
+    public function getPayload(): string
     {
         return $this->getData(self::PAYLOAD);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setTimestamp($timestamp)
+    public function setTimestamp(int $timestamp): self
     {
         return $this->setData(self::TIMESTAMP, $timestamp);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getTimestamp()
+    public function getTimestamp(): int
     {
-        return $this->getData(self::TIMESTAMP);
+        return (int)$this->getData(self::TIMESTAMP);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setResponseCode($code)
+    public function setResponseCode(int $code): self
     {
         return $this->setData(self::RESPONSE_CODE, $code);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getResponseCode()
+    public function getResponseCode(): int
     {
-        return $this->getData(self::RESPONSE_CODE);
+        return (int)$this->getData(self::RESPONSE_CODE);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setResponse($response)
+    public function setResponse(string $response): self
     {
         return $this->setData(self::RESPONSE, $response);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getResponse()
+    public function getResponse(): string
     {
-        return $this->getData(self::RESPONSE);
+        return (string)$this->getData(self::RESPONSE);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setHttpMethod(string $method)
+    public function setHttpMethod(string $method): self
     {
         return $this->setData(self::HTTP_METHOD, $method);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getHttpMethod(): ?string
+    public function getHttpMethod(): string
     {
-        return $this->getData(self::HTTP_METHOD);
+        return (string)$this->getData(self::HTTP_METHOD);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setIpAddress(string $ipAddress)
+    public function setIpAddress(string $ipAddress): self
     {
         return $this->setData(self::IP_ADDRESS, $ipAddress);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getIpAddress(): ?string
+    public function getIpAddress(): string
     {
         return $this->getData(self::IP_ADDRESS);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getIntegrationId(): ?int
     {
-        return $this->getData(self::INTEGRATION_ID);
+        return $this->getData(self::INTEGRATION_ID) ? (int)$this->getData(self::INTEGRATION_ID) : null;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setIntegrationId($integrationId)
+    public function setIntegrationId(int $integrationId): self
     {
         return $this->setData(self::INTEGRATION_ID, $integrationId);
     }
