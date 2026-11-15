@@ -30,7 +30,8 @@ class CreateNewRestLog
         if ($dataObject instanceof \Magento\Framework\Webapi\Rest\Response && $this->restLog) {
             $this->restLog->setResponseCode($dataObject->getStatusCode());
             $responseContentWithPlaceholders = $this->replacer->applyResponsePlaceholders($dataObject->getContent());
-            $this->restLog->setResponse($responseContentWithPlaceholders);
+            $croppedResponseContent = $this->formatter->cropPayloadContent($responseContentWithPlaceholders);
+            $this->restLog->setResponse($croppedResponseContent);
 
             if ($this->isIntegrationContext()) {
                 $this->restLog->setIntegrationId($this->userContext->getUserId());
